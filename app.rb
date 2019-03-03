@@ -3,6 +3,7 @@ require 'octokit'
 require './query_builder'
 require './pr_formatter'
 require './comment_formatter'
+require './issue_formatter'
 
 
 def fetch_prs(client, builder)
@@ -23,12 +24,23 @@ def fetch_prs(client, builder)
   puts review_comment_formatter.format
 end
 
+def fetch_issues(client, builder)
+  issues = client.search_issues(builder.issue_query)
+  if issues.total_count <= 0
+    return
+  end
+  formatter = IssueFormatter.new(issues.items)
+  puts issues.total_count
+  puts formatter.format
+end
+
 def fetch
   repo = ARGV[0]
   user = ARGV[1]
   date_range = ARGV[2]
   client = Octokit::Client.new(access_token: ENV['ACCESS_TOKEN'], auto_paginate: true)
   builder = QueryBuilder.new(repo, user, date_range)
+  fetch_issues(client, builder)
 end
 
 fetch
