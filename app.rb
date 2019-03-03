@@ -22,9 +22,9 @@ def fetch_reviewed_prs(client, builder, repo)
   puts pr_formatter.to_md
 
   comments = pr_numbers.flat_map {|number| client.issue_comments(repo, number)}
-  review_comments = pr_numbers.flat_map {|number| client.pull_request_reviews(repo, number)}
-  comment_formatter = CommentFormatter.new(comments)
-  review_comment_formatter = CommentFormatter.new(review_comments)
+  review_comments = pr_numbers.flat_map {|number| client.pull_request_comments(repo, number)}
+  comment_formatter = CommentFormatter.new(comments, "Comments")
+  review_comment_formatter = CommentFormatter.new(review_comments, "Review comments")
   puts comment_formatter.to_md
   puts review_comment_formatter.to_md
 end
@@ -44,8 +44,7 @@ def fetch
   date_range = ARGV[2]
   client = Octokit::Client.new(access_token: ENV['ACCESS_TOKEN'], auto_paginate: true)
   builder = QueryBuilder.new(repo, user, date_range)
-  # fetch_prs(client, builder, repo)
-  fetch_issues(client, builder)
+  fetch_reviewed_prs(client, builder, repo)
 end
 
 fetch
