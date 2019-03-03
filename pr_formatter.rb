@@ -3,13 +3,23 @@ class PullRequestFormatter
     @prs = prs
   end
 
-  def format
-    @prs.map(&method(:print)).join("\n")
+  def to_md
+    %(## Pull Requests
+- #{@prs.length} pull requests
+- `+#{@prs.sum {|pr| pr.additions}}` `-#{@prs.sum {|pr| pr.deletions}}`
+
+### Details
+#{@prs.map(&method(:format)).join("\n")})
   end
 
   private
 
-  def print(pr)
-    "#{pr.title}\n#{pr.html_url}\n\t#{pr.commits}\n\t+#{pr.additions}\n\t-#{pr.deletions}\n\t#{pr.changed_files}"
+  def format(pr)
+    %(
+#### #{pr.title}
+- #{pr.html_url}
+- Commits: #{pr.commits}
+- `+#{pr.additions}`, `-#{pr.deletions}`
+- Files changed: #{pr.changed_files})
   end
 end
