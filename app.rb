@@ -41,6 +41,12 @@ def fetch
   builder = QueryBuilder.new(repo, user, date_range)
   client = Client.new(baseClient, builder)
 
+  puts %(# GitHub portfolio
+
+- #{user}
+- #{repo}
+- #{date_range}
+       )
   show_issues(client)
   show_prs(client, repo)
   show_reviewed_prs(client, repo, user)
