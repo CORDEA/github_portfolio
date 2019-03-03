@@ -5,11 +5,16 @@ class PullRequestFormatter
   end
 
   def to_md
-    %(## #{@title}
+    section = %(## #{@title}
 - #{@prs.length} pull requests
 - `+#{@prs.sum {|pr| pr.additions}}` `-#{@prs.sum {|pr| pr.deletions}}`
+)
 
-### Details
+    if @prs.length <= 0
+      return section
+    end
+
+    section + %(### Details
 #{@prs.map(&method(:format)).join("\n")}
     )
   end

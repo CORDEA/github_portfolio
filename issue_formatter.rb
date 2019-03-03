@@ -4,10 +4,15 @@ class IssueFormatter
   end
 
   def to_md
-    %(## Issues
+    section = %(## Issues
 - #{@issues.length} issues
+)
 
-### Details
+    if @issues.length <= 0
+      return section
+    end
+
+    section + %(### Details
 #{@issues.map(&method(:format)).join("\n")}
     )
   end

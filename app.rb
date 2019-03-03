@@ -26,9 +26,6 @@ end
 
 def show_issues(client)
   issues = client.fetch_issues
-  if issues.length <= 0
-    return
-  end
   formatter = IssueFormatter.new(issues)
   puts formatter.to_md
 end

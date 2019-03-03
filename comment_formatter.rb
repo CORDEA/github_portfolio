@@ -4,11 +4,16 @@ class CommentFormatter
     @title = title
   end
 
-  def to_md()
-    %(## #{@title}
+  def to_md
+    section = %(## #{@title}
 - #{@comments.length} comments
+)
 
-### Details
+    if @comments.length <= 0
+      return section
+    end
+
+    section + %(### Details
 #{@comments.map(&method(:format)).join("\n")}
     )
   end
