@@ -21,6 +21,13 @@ $ ./app.rb 'CORDEA/oauth' 'CORDEA' '2018-01-01..2019-01-01'
        
 ## Issues
 - 0 issues
+## Assigned issues
+- 1 issues
+### Details
+
+#### [CLOSED] request is deprecated
+- https://github.com/CORDEA/oauth/issues/9
+    
 ## Pull requests
 - 1 pull requests
 - `+326` `-142`
