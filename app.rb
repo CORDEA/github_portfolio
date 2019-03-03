@@ -37,8 +37,7 @@ def fetch_issues(client, builder)
     return
   end
   formatter = IssueFormatter.new(issues.items)
-  puts issues.total_count
-  puts formatter.format
+  puts formatter.to_md
 end
 
 def fetch
@@ -47,8 +46,8 @@ def fetch
   date_range = ARGV[2]
   client = Octokit::Client.new(access_token: ENV['ACCESS_TOKEN'], auto_paginate: true)
   builder = QueryBuilder.new(repo, user, date_range)
-  fetch_prs(client, builder, repo)
-  # fetch_issues(client, builder)
+  # fetch_prs(client, builder, repo)
+  fetch_issues(client, builder)
 end
 
 fetch

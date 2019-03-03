@@ -3,13 +3,20 @@ class IssueFormatter
     @issues = issues
   end
 
-  def format
-    @issues.map(&method(:print)).join("\n")
+  def to_md
+    %(## Issues
+- #{@issues.length} issues
+
+### Details
+#{@issues.map(&method(:format)).join("\n")}
+    )
   end
 
   private
 
-  def print(issue)
-    "#{issue.title}\n#{issue.html_url}"
+  def format(issue)
+    %(
+#### #{issue.title}
+- #{issue.html_url})
   end
 end
