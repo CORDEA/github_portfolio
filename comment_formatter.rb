@@ -1,10 +1,11 @@
 class CommentFormatter
-  def initialize(comments)
+  def initialize(comments, title)
     @comments = comments
+    @title = title
   end
 
   def to_md()
-    %(## Review comments
+    %(## #{@title}
 - #{@comments.length} comments
 
 ### Details
@@ -16,10 +17,9 @@ class CommentFormatter
 
   def format(comment)
     %(
-- #{comment._links.html.href}
+- #{comment.html_url}
 
-```
-#{comment.body}
-```)
+    #{comment.body}
+    )
   end
 end
