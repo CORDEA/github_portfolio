@@ -9,7 +9,8 @@ class PullRequestFormatter
 - `+#{@prs.sum {|pr| pr.additions}}` `-#{@prs.sum {|pr| pr.deletions}}`
 
 ### Details
-#{@prs.map(&method(:format)).join("\n")})
+#{@prs.map(&method(:format)).join("\n")}
+    )
   end
 
   private
