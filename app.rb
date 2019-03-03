@@ -44,6 +44,8 @@ def fetch
   date_range = ARGV[2]
   client = Octokit::Client.new(access_token: ENV['ACCESS_TOKEN'], auto_paginate: true)
   builder = QueryBuilder.new(repo, user, date_range)
+  fetch_issues(client, builder)
+  fetch_prs(client, builder, repo)
   fetch_reviewed_prs(client, builder, repo)
 end
 
