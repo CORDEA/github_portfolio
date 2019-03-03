@@ -3,13 +3,23 @@ class CommentFormatter
     @comments = comments
   end
 
-  def format()
-    @comments.map(&method(:print)).join("\n")
+  def to_md()
+    %(## Review comments
+- #{@comments.length} comments
+
+### Details
+#{@comments.map(&method(:format)).join("\n")}
+    )
   end
 
   private
 
-  def print(comment)
-    "#{comment._links.html.href}\n#{comment.body}"
+  def format(comment)
+    %(
+- #{comment._links.html.href}
+
+```
+#{comment.body}
+```)
   end
 end

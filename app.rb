@@ -25,10 +25,8 @@ def fetch_reviewed_prs(client, builder, repo)
   review_comments = pr_numbers.flat_map {|number| client.pull_request_reviews(repo, number)}
   comment_formatter = CommentFormatter.new(comments)
   review_comment_formatter = CommentFormatter.new(review_comments)
-  puts comments.length
-  puts comment_formatter.format
-  puts review_comments.length
-  puts review_comment_formatter.format
+  puts comment_formatter.to_md
+  puts review_comment_formatter.to_md
 end
 
 def fetch_issues(client, builder)
