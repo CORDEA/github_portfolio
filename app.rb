@@ -10,7 +10,7 @@ def fetch_prs(client, builder, repo)
   prs = client.search_issues(builder.pr_query)
   pr_numbers = prs.items.map {|pr| pr.number}
   pr_details = pr_numbers.map {|number| client.pull_request(repo, number)}
-  pr_formatter = PullRequestFormatter.new(pr_details)
+  pr_formatter = PullRequestFormatter.new(pr_details, "Pull requests")
   puts pr_formatter.to_md
 end
 
@@ -18,7 +18,7 @@ def fetch_reviewed_prs(client, builder, repo)
   prs = client.search_issues(builder.reviewed_pr_query)
   pr_numbers = prs.items.map {|pr| pr.number}
   pr_details = pr_numbers.map {|number| client.pull_request(repo, number)}
-  pr_formatter = PullRequestFormatter.new(pr_details)
+  pr_formatter = PullRequestFormatter.new(pr_details, "Reviewed pull requests")
   puts pr_formatter.to_md
 
   comments = pr_numbers.flat_map {|number| client.issue_comments(repo, number)}

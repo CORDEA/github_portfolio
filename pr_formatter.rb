@@ -1,10 +1,11 @@
 class PullRequestFormatter
-  def initialize(prs)
+  def initialize(prs, title)
     @prs = prs
+    @title = title
   end
 
   def to_md
-    %(## Pull Requests
+    %(## #{@title}
 - #{@prs.length} pull requests
 - `+#{@prs.sum {|pr| pr.additions}}` `-#{@prs.sum {|pr| pr.deletions}}`
 
