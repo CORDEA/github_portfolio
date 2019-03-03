@@ -14,15 +14,19 @@ def fetch_prs(client, builder, repo)
   puts pr_formatter.to_md
 end
 
-def fetch_reviewed_prs(client, builder, repo)
+def fetch_reviewed_prs(client, builder, repo, author)
   prs = client.search_issues(builder.reviewed_pr_query)
   pr_numbers = prs.items.map {|pr| pr.number}
   pr_details = pr_numbers.map {|number| client.pull_request(repo, number)}
   pr_formatter = PullRequestFormatter.new(pr_details, "Reviewed pull requests")
   puts pr_formatter.to_md
 
-  comments = pr_numbers.flat_map {|number| client.issue_comments(repo, number)}
-  review_comments = pr_numbers.flat_map {|number| client.pull_request_comments(repo, number)}
+  comments = pr_numbers
+                 .flat_map {|number| client.issue_comments(repo, number)}
+                 .select {|issue| issue.user.login == author}
+  review_comments = pr_numbers
+                        .flat_map {|number| client.pull_request_comments(repo, number)}
+                        .select {|issue| issue.user.login == author}
   comment_formatter = CommentFormatter.new(comments, "Comments")
   review_comment_formatter = CommentFormatter.new(review_comments, "Review comments")
   puts comment_formatter.to_md
@@ -46,7 +50,7 @@ def fetch
   builder = QueryBuilder.new(repo, user, date_range)
   fetch_issues(client, builder)
   fetch_prs(client, builder, repo)
-  fetch_reviewed_prs(client, builder, repo)
+  fetch_reviewed_prs(client, builder, repo, user)
 end
 
 fetch
