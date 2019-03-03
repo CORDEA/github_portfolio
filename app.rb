@@ -26,7 +26,13 @@ end
 
 def show_issues(client)
   issues = client.fetch_issues
-  formatter = IssueFormatter.new(issues)
+  formatter = IssueFormatter.new(issues, "Issues")
+  puts formatter.to_md
+end
+
+def show_assigned_issues(client)
+  issues = client.fetch_assigned_issues
+  formatter = IssueFormatter.new(issues, "Assigned issues")
   puts formatter.to_md
 end
 
@@ -45,6 +51,7 @@ def fetch
 - #{date_range}
        )
   show_issues(client)
+  show_assigned_issues(client)
   show_prs(client, repo)
   show_reviewed_prs(client, repo, user)
 end

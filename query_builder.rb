@@ -16,4 +16,8 @@ class QueryBuilder
   def issue_query
     "is:issue repo:#{@repo} author:#{@author} created:#{@created}"
   end
+
+  def assigned_issue_query
+    "is:issue repo:#{@repo} assignee:#{@author} -author:#{@author} created:#{@created}"
+  end
 end

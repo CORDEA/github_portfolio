@@ -1,10 +1,11 @@
 class IssueFormatter
-  def initialize(issues)
+  def initialize(issues, title)
     @issues = issues
+    @title = title
   end
 
   def to_md
-    section = %(## Issues
+    section = %(## #{@title}
 - #{@issues.length} issues
 )
 
@@ -21,7 +22,7 @@ class IssueFormatter
 
   def format(issue)
     %(
-#### #{issue.title}
+#### [#{issue.state.upcase}] #{issue.title}
 - #{issue.html_url})
   end
 end

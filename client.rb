@@ -26,6 +26,10 @@ class Client
     @client.search_issues(@builder.issue_query).items
   end
 
+  def fetch_assigned_issues
+    @client.search_issues(@builder.assigned_issue_query).items
+  end
+
   private
 
   def fetch_reviewed_comments(repo, numbers, author)
