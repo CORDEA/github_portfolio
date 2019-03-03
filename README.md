@@ -19,10 +19,11 @@ $ ./app.rb 'CORDEA/oauth' 'CORDEA' '2018-01-01..2019-01-01'
 - CORDEA/oauth
 - 2018-01-01..2019-01-01
        
+## Issues
+- 0 issues
 ## Pull requests
 - 1 pull requests
 - `+326` `-142`
-
 ### Details
 
 #### Replace to new http request
@@ -34,21 +35,8 @@ $ ./app.rb 'CORDEA/oauth' 'CORDEA' '2018-01-01..2019-01-01'
 ## Reviewed pull requests
 - 0 pull requests
 - `+0` `-0`
-
-### Details
-
-    
 ## Comments
 - 0 comments
-
-### Details
-
-    
 ## Review comments
 - 0 comments
-
-### Details
-
-    
-
 ```
