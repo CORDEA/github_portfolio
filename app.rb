@@ -13,6 +13,15 @@ def fetch_prs(client, builder)
   pr_formatter = PullRequestFormatter.new(pr_details)
   puts prs.total_count
   puts pr_formatter.format
+end
+
+def fetch_reviewed_prs(client, builder)
+  prs = client.search_issues(builder.reviewed_pr_query)
+  pr_numbers = prs.items.map {|pr| pr.number}
+  pr_details = pr_numbers.map {|number| client.pull_request(repo, number)}
+  pr_formatter = PullRequestFormatter.new(pr_details)
+  puts prs.total_count
+  puts pr_formatter.format
 
   comments = pr_numbers.flat_map {|number| client.issue_comments(repo, number)}
   review_comments = pr_numbers.flat_map {|number| client.pull_request_reviews(repo, number)}
